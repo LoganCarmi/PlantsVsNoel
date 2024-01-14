@@ -37,6 +37,7 @@ void ADefeatZone::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Ot
         if (YourWidget)
         {
             YourWidget->AddToViewport();
+            UGameplayStatics::SetGamePaused(GetWorld(), true);
         }
     }
 }

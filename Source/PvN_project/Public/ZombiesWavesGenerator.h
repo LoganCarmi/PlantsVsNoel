@@ -77,6 +77,8 @@ public:
     UPROPERTY(EditAnywhere, Category = "Zombie")
     USkeletalMesh* BucketZombieMesh;
 
+    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UAnimSequence* ZombieWalkAnim;
 
     // Classic Variables
     UPROPERTY(EditAnywhere, Category = "Zombie")
@@ -118,21 +120,6 @@ public:
 
 
     // Waves
-    UFUNCTION(BlueprintCallable, Category = "Zombie")
-    void StartWave1();
-
-    UFUNCTION(BlueprintCallable, Category = "Zombie")
-    void StartWave2();
-
-    UFUNCTION(BlueprintCallable, Category = "Zombie")
-    void StartWave3();
-
-    UFUNCTION(BlueprintCallable, Category = "Zombie")
-    void StartWave4();
-
-    UFUNCTION(BlueprintCallable, Category = "Zombie")
-    void StartWave5();
-
     UFUNCTION(BlueprintCallable, Category = "Zombie")
     void SpawnWave(int32 WaveIndex);
 

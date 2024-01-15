@@ -11,6 +11,23 @@
 #include "Engine/SkeletalMesh.h"
 #include "ZombiesWavesGenerator.generated.h"
 
+USTRUCT(BlueprintType)
+struct FWaveParameters
+{
+    GENERATED_BODY()
+
+public : 
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 MinAmountZombies;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 MaxAmountZombies;
+ 
+    FWaveParameters() : MinAmountZombies(1), MaxAmountZombies(3) {}
+    FWaveParameters(int32 MinAmount, int32 MaxAmount) : MinAmountZombies(MinAmount), MaxAmountZombies(MaxAmount) {}
+};
+
 UCLASS()
 class PVN_PROJECT_API AZombiesWavesGenerator : public AActor
 {
@@ -26,17 +43,23 @@ public:
 
     // UPROPERTIES : 
     // Arrays
-    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
     TArray<FVector> SpawnPositions;
 
-    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
     TArray<FVector> TargetPositions;
 
-    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
     TArray<AActor*> ZombiesArray;
 
-    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
     TArray<int> RandomIndex;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
+    TArray<FWaveParameters> ParametersPerWave;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
+    TArray<FText> WaveInComingTextArray;
 
 
     // Subclasses
@@ -55,6 +78,9 @@ public:
     USkeletalMesh* BucketZombieMesh;
 
 
+    // Classic Variables
+    UPROPERTY(EditAnywhere, Category = "Zombie")
+    int32 AmountZombieSpawned;
 
 
     // UFUNCTIONS
@@ -106,6 +132,10 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Zombie")
     void StartWave5();
+
+    UFUNCTION(BlueprintCallable, Category = "Zombie")
+    void SpawnWave(int32 WaveIndex);
+
 
 protected:
     // Declaration of the BeginPlay function

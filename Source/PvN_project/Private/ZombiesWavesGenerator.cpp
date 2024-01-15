@@ -76,7 +76,7 @@ void AZombiesWavesGenerator::SetMeshToSkeletalMeshComponent(AActor* MyActor, USk
 AActor* AZombiesWavesGenerator::SpawnZombie(FVector SpawnLocation)
 {
     FActorSpawnParameters SpawnParams;
-    AActor* ZombieSpawned = GetWorld()->SpawnActor<AActor>(ZombieClass, SpawnLocation, FRotator::ZeroRotator, SpawnParams);
+    AActor* ZombieSpawned = GetWorld()->SpawnActor<AActor>(ZombieClass, SpawnLocation, FRotator(0.0f, 180.0f, 0.0f), SpawnParams);
     ZombieSpawned->SetActorScale3D(FVector(0.4, 0.4, 0.4));
     USkeletalMeshComponent* ZombieSkeletalMeshComponent = GetSkeletalMeshComponent(ZombieSpawned);
     SetMeshToSkeletalMeshComponent(ZombieSpawned, ClassicZombieMesh);
@@ -121,7 +121,7 @@ void AZombiesWavesGenerator::RestartMovement(AActor* Zombie)
         LatentInfo.CallbackTarget = Zombie;
         FVector TMPTargetPosition = FVector(Zombie->GetActorLocation().X, TargetPositions[RandomIndex[0]].Y, Zombie->GetActorLocation().Z);
         float remainingTime = (TargetPositions[RandomIndex[0]].Y - Zombie->GetActorLocation().Y) / (TargetPositions[RandomIndex[0]].Y - SpawnPositions[RandomIndex[0]].Y) * 30.0f;
-        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(Zombie), TMPTargetPosition, FRotator(0.0f, 0.0f, 0.0f), false, false, remainingTime, false, EMoveComponentAction::Type::Move, LatentInfo);
+        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(Zombie), TMPTargetPosition, FRotator(0.0f, 180.0f, 0.0f), false, false, remainingTime, false, EMoveComponentAction::Type::Move, LatentInfo);
     }
 }
 
@@ -136,8 +136,8 @@ void AZombiesWavesGenerator::StartWave1()
     LatentInfo2.CallbackTarget = ZombiesArray[1];
 
     // Start the MoveComponentTo using the previous variables
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[0]), TargetPositions[RandomIndex[0]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[1]), TargetPositions[RandomIndex[1]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[0]), TargetPositions[RandomIndex[0]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[1]), TargetPositions[RandomIndex[1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
 }
 
 // Used after spawning the zombies, start the wave 2 by adding the movement to the zombies
@@ -152,9 +152,9 @@ void AZombiesWavesGenerator::StartWave2()
     LatentInfo3.CallbackTarget = ZombiesArray[4];
 
     // Start the MoveComponentTo using the previous variables
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[2]), TargetPositions[RandomIndex[2]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[3]), TargetPositions[RandomIndex[3]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2); 
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[4]), TargetPositions[RandomIndex[4]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[2]), TargetPositions[RandomIndex[2]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[3]), TargetPositions[RandomIndex[3]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2); 
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[4]), TargetPositions[RandomIndex[4]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
 }
 
 // Used after spawning the zombies, start the wave 3 by adding the movement to the zombies
@@ -172,12 +172,12 @@ void AZombiesWavesGenerator::StartWave3()
     LatentInfo6.CallbackTarget = ZombiesArray[10];
 
     // Start the MoveComponentTo using the previous variables
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[5]), TargetPositions[RandomIndex[5]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[6]), TargetPositions[RandomIndex[6]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[7]), TargetPositions[RandomIndex[7]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[8]), TargetPositions[RandomIndex[8]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[9]), TargetPositions[RandomIndex[9]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[10]), TargetPositions[RandomIndex[10]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[5]), TargetPositions[RandomIndex[5]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[6]), TargetPositions[RandomIndex[6]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[7]), TargetPositions[RandomIndex[7]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[8]), TargetPositions[RandomIndex[8]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[9]), TargetPositions[RandomIndex[9]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[10]), TargetPositions[RandomIndex[10]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
 }
 
 // Used after spawning the zombies, start the wave 4 by adding the movement to the zombies
@@ -197,14 +197,14 @@ void AZombiesWavesGenerator::StartWave4()
     LatentInfo8.CallbackTarget = ZombiesArray[18];
 
     // Start the MoveComponentTo using the previous variables
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[11]), TargetPositions[RandomIndex[11]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[12]), TargetPositions[RandomIndex[12]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[13]), TargetPositions[RandomIndex[13]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[14]), TargetPositions[RandomIndex[14]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[15]), TargetPositions[RandomIndex[15]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[16]), TargetPositions[RandomIndex[16]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[17]), TargetPositions[RandomIndex[17]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo7);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[18]), TargetPositions[RandomIndex[18]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo8);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[11]), TargetPositions[RandomIndex[11]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[12]), TargetPositions[RandomIndex[12]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[13]), TargetPositions[RandomIndex[13]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[14]), TargetPositions[RandomIndex[14]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[15]), TargetPositions[RandomIndex[15]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[16]), TargetPositions[RandomIndex[16]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[17]), TargetPositions[RandomIndex[17]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo7);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[18]), TargetPositions[RandomIndex[18]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo8);
 }
 
 // Used after spawning the zombies, start the wave 5 by adding the movement to the zombies
@@ -227,15 +227,34 @@ void AZombiesWavesGenerator::StartWave5()
     LatentInfo11.CallbackTarget = ZombiesArray[29];
 
     // Start the MoveComponentTo using the previous variables
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[19]), TargetPositions[RandomIndex[19]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[20]), TargetPositions[RandomIndex[20]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[21]), TargetPositions[RandomIndex[21]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[22]), TargetPositions[RandomIndex[22]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[23]), TargetPositions[RandomIndex[23]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[24]), TargetPositions[RandomIndex[24]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[25]), TargetPositions[RandomIndex[25]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo7);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[26]), TargetPositions[RandomIndex[26]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo8);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[27]), TargetPositions[RandomIndex[27]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo9);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[28]), TargetPositions[RandomIndex[28]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo10);
-    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[29]), TargetPositions[RandomIndex[29]], FRotator(0.0f, 0.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo11);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[19]), TargetPositions[RandomIndex[19]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo1);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[20]), TargetPositions[RandomIndex[20]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo2);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[21]), TargetPositions[RandomIndex[21]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo3);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[22]), TargetPositions[RandomIndex[22]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo4);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[23]), TargetPositions[RandomIndex[23]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo5);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[24]), TargetPositions[RandomIndex[24]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo6);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[25]), TargetPositions[RandomIndex[25]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo7);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[26]), TargetPositions[RandomIndex[26]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo8);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[27]), TargetPositions[RandomIndex[27]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo9);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[28]), TargetPositions[RandomIndex[28]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo10);
+    UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[29]), TargetPositions[RandomIndex[29]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo11);
+}
+
+void AZombiesWavesGenerator::SpawnWave(int32 WaveIndex) {
+    FLatentActionInfo LatentInfo;
+    int32 MinAmount = ParametersPerWave[WaveIndex].MinAmountZombies;
+    int32 MaxAmount = ParametersPerWave[WaveIndex].MaxAmountZombies;
+
+    int32 RandomAmount = FMath::RandRange(MinAmount, MaxAmount);
+
+    for (int32 i = 0; i < RandomAmount; i++)
+    {
+        int RandomIndexGenerated = GetRandomIndex();
+        FVector RandomLocation = GetRandomSpawnLocation(RandomIndexGenerated);
+        SpawnZombie(RandomLocation);
+        AmountZombieSpawned++;
+
+        LatentInfo.CallbackTarget = ZombiesArray[AmountZombieSpawned - 1];
+        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[AmountZombieSpawned - 1]), TargetPositions[RandomIndex[AmountZombieSpawned - 1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo);
+    }
 }

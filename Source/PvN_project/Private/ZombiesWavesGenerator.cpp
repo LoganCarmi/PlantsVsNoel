@@ -148,3 +148,23 @@ void AZombiesWavesGenerator::SpawnWave(int32 WaveIndex) {
         UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[AmountZombieSpawned - 1]), TargetPositions[RandomIndex[AmountZombieSpawned - 1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo);
     }
 }
+
+void AZombiesWavesGenerator::SpawnEndlessWave() {
+    FLatentActionInfo LatentInfo;
+    EndlessWaveCounter++;
+    int32 MinAmount = EndlessRangeWave.MinAmountZombies + (EndlessWaveCounter * IncreasingRatioEndless);
+    int32 MaxAmount = EndlessRangeWave.MaxAmountZombies + (EndlessWaveCounter * IncreasingRatioEndless);
+
+    int32 RandomAmount = FMath::RandRange(MinAmount, MaxAmount);
+
+    for (int32 i = 0; i < RandomAmount; i++)
+    {
+        int RandomIndexGenerated = GetRandomIndex();
+        FVector RandomLocation = GetRandomSpawnLocation(RandomIndexGenerated);
+        SpawnZombie(RandomLocation);
+        AmountZombieSpawned++;
+
+        LatentInfo.CallbackTarget = ZombiesArray[AmountZombieSpawned - 1];
+        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[AmountZombieSpawned - 1]), TargetPositions[RandomIndex[AmountZombieSpawned - 1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo);
+    }
+}

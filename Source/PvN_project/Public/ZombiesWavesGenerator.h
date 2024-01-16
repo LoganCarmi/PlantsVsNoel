@@ -84,6 +84,14 @@ public:
     UPROPERTY(EditAnywhere, Category = "Zombie")
     int32 AmountZombieSpawned;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
+    int32 EndlessWaveCounter = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
+    int32 IncreasingRatioEndless;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zombie")
+    FWaveParameters EndlessRangeWave;
 
     // UFUNCTIONS
     // Getters
@@ -123,6 +131,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Zombie")
     void SpawnWave(int32 WaveIndex);
 
+    UFUNCTION(BlueprintCallable, Category = "Zombie")
+    void SpawnEndlessWave();
 
 protected:
     // Declaration of the BeginPlay function

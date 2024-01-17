@@ -112,6 +112,9 @@ void AZombiesWavesGenerator::StopMovement(AActor* Zombie)
 {
     if (Zombie) {
         GetSkeletalMeshComponent(Zombie)->Stop();
+        if (ZombieEatAnim) {
+            GetSkeletalMeshComponent(Zombie)->PlayAnimation(ZombieEatAnim, true);
+        }
         FLatentActionManager& LatentActionManager = GetWorld()->GetLatentActionManager();
         LatentActionManager.RemoveActionsForObject(Zombie);
     }
@@ -121,11 +124,12 @@ void AZombiesWavesGenerator::StopMovement(AActor* Zombie)
 void AZombiesWavesGenerator::RestartMovement(AActor* Zombie)
 {
     if (Zombie) {
+        GetSkeletalMeshComponent(Zombie)->Stop();
         GetSkeletalMeshComponent(Zombie)->PlayAnimation(ZombieWalkAnim, true);
         FLatentActionInfo LatentInfo;
         LatentInfo.CallbackTarget = Zombie;
         FVector TMPTargetPosition = FVector(Zombie->GetActorLocation().X, TargetPositions[RandomIndex[0]].Y, Zombie->GetActorLocation().Z);
-        float remainingTime = (TargetPositions[RandomIndex[0]].Y - Zombie->GetActorLocation().Y) / (TargetPositions[RandomIndex[0]].Y - SpawnPositions[RandomIndex[0]].Y) * 30.0f;
+        float remainingTime = (TargetPositions[RandomIndex[0]].Y - Zombie->GetActorLocation().Y) / (TargetPositions[RandomIndex[0]].Y - SpawnPositions[RandomIndex[0]].Y) * 32.0f;
         UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(Zombie), TMPTargetPosition, FRotator(0.0f, 180.0f, 0.0f), false, false, remainingTime, false, EMoveComponentAction::Type::Move, LatentInfo);
     }
 }
@@ -145,7 +149,7 @@ void AZombiesWavesGenerator::SpawnWave(int32 WaveIndex) {
         AmountZombieSpawned++;
 
         LatentInfo.CallbackTarget = ZombiesArray[AmountZombieSpawned - 1];
-        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[AmountZombieSpawned - 1]), TargetPositions[RandomIndex[AmountZombieSpawned - 1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 30.0f, false, EMoveComponentAction::Type::Move, LatentInfo);
+        UKismetSystemLibrary::MoveComponentTo(GetSceneComponent(ZombiesArray[AmountZombieSpawned - 1]), TargetPositions[RandomIndex[AmountZombieSpawned - 1]], FRotator(0.0f, 180.0f, 0.0f), false, false, 32.0f, false, EMoveComponentAction::Type::Move, LatentInfo);
     }
 }
 

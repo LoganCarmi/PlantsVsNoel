@@ -80,6 +80,9 @@ public:
     UPROPERTY(EditAnywhere, Category = "Zombie")
     UAnimSequence* ZombieWalkAnim;
 
+    UPROPERTY(EditAnywhere, Category = "Zombie")
+    UAnimSequence* ZombieEatAnim;
+
     // Classic Variables
     UPROPERTY(EditAnywhere, Category = "Zombie")
     int32 AmountZombieSpawned;
